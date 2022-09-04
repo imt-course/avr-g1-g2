@@ -128,7 +128,7 @@ void Dio_SetPinLevel(Dio_PortType port, Dio_PinType pin, Dio_PinLevelType level)
 
 Dio_PinLevelType Dio_FlipPinLevel(Dio_PortType port, Dio_PinType pin)
 {
-    Dio_PinLevelType level;
+    Dio_PinLevelType level = STD_HIGH;
     switch (port)
     {
     case DIO_PORTA:

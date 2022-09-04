@@ -92,9 +92,9 @@ void Lcd_DisplayControl(Lcd_DisplayControlType display)
     }
 }
 
-void Lcd_DisplayNumber(s64 num)
+void Lcd_DisplayNumber(s32 num)
 {
-    u64 reversed = 0;
+    u32 reversed = 0;
     u8 counter = 0;
     if (num < 0)
     {

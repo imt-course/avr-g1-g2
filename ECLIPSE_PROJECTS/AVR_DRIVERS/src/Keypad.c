@@ -7,6 +7,7 @@
 #include <std_types.h>
 #include <Macros.h>
 #include <Dio.h>
+#include <cpu_freq.h>
 #include <Keypad_cfg.h>
 #include <Keypad.h>
 
@@ -103,6 +104,7 @@ static Dio_PinLevelType Keypad_GetRowLevel(u8 row)
     default:
         break;
     }
+    return level;
 }
 
 static void Keypad_SetColumnLevel(u8 column, Dio_PinLevelType level)
