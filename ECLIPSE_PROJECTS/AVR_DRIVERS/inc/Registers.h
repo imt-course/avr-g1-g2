@@ -8,7 +8,9 @@
 #ifndef INC_REGISTERS_H_
 #define INC_REGISTERS_H_
 
-/* DIO REGISTERS */
+/******************************************************************
+ * Dio Registers
+ *****************************************************************/
 #define PORTA	                        *((volatile u8*)0x3B)
 #define DDRA	                        *((volatile u8*)0x3A)
 #define PINA	                        *((volatile u8*)0x39)
@@ -22,5 +24,17 @@
 #define DDRD	                        *((volatile u8*)0x31)
 #define PIND	                        *((volatile u8*)0x30)
 
+/******************************************************************
+ * External Interrupt Registers
+ *****************************************************************/
+#define MCUCR	                        *((volatile u8*)0x55)
+#define MCUCSR	                        *((volatile u8*)0x54)
+#define GICR	                        *((volatile u8*)0x5B)
+#define GIFR	                        *((volatile u8*)0x5A)
+
+/******************************************************************
+ * Global Interrupt Enable Registers
+ *****************************************************************/
+#define SREG	                        *((volatile u8*)0x5F)
 
 #endif /* INC_REGISTERS_H_ */
