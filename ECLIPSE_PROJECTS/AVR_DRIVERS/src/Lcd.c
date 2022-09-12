@@ -117,14 +117,23 @@ void Lcd_DisplayNumber(s32 num)
 
 void Lcd_DisplayShiftLeft(u8 counter)
 {
+    u8 i;
+    for (i=0; i<counter; i++) {
+        Lcd_SendCommand(0b00011000);
+    }
 }
 
 void Lcd_DisplayShiftRight(u8 counter)
 {
+    u8 i;
+    for (i=0; i<counter; i++) {
+        Lcd_SendCommand(0b00011100);
+    }
 }
 
 void Lcd_ReturnHome(void)
 {
+    Lcd_SendCommand(0b00000010);
 }
 
 static void Lcd_SendCommand(u8 command)
