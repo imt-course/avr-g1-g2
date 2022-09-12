@@ -196,13 +196,13 @@ void Dio_SetPortMode(Dio_PortType port, Dio_PortModeType mode)
         DDRA = mode;
         break;
     case DIO_PORTB:
-        DDRA = mode;
+        DDRB = mode;
         break;
     case DIO_PORTC:
-        DDRA = mode;
+        DDRC = mode;
         break;
     case DIO_PORTD:
-        DDRA = mode;
+        DDRD = mode;
         break;
     default:
         break;
