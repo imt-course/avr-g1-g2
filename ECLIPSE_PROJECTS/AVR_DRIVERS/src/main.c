@@ -19,30 +19,29 @@
 #include <Adc.h>
 #include <Ldr.h>
 #include <Lm35.h>
+#include <Gpt.h>
+#include <Interrupts.h>
 
-int main(void)
-{
-	u16 result;
-	/* Set ADC Pins as Input */
-	Dio_SetPinMode(DIO_PORTA, DIO_PIN0, DIO_PIN_INPUT_FLOATING);
-	Dio_SetPinMode(DIO_PORTA, DIO_PIN1, DIO_PIN_INPUT_FLOATING);
-	/* Initialize ADC */
-	Adc_Init(&Adc_Cfg);
-	/* Initialize LCD */
-	Lcd_Init();
-	while(1) {
-		/* Reading Temperature */
-		result = Lm35_GetTemperature();
-		Lcd_DisplayClear();
-		Lcd_DisplayString("Temperature = ");
-		Lcd_DisplayNumber(result);
-		Lcd_DisplayString(" C");
-		/* Reading LDR */
-		result = Ldr_GetReading();
-		Lcd_SetCursorPosition(1,0);
-		Lcd_DisplayString("LDR = ");
-		Lcd_DisplayNumber(result);
-		Lcd_DisplayString(" mV");
-		_delay_ms(1000);
+/* Timer Driver Example */
+
+volatile u16 counter;
+void Timer0Handler (void);
+
+int main (void) {
+	Dio_SetPinMode(DIO_PORTA, DIO_PIN0, DIO_PIN_OUTPUT);
+	Gpt_Init();
+	Gpt_Start(GPT_CHANNEL_TIM0, 250);
+	Gpt_EnableNotification(GPT_INT_SOURCE_TIM0_COMP, Timer0Handler);
+	Gie_Enable();
+	while (1)
+	{
+		if (counter == 4000) {
+			counter = 0;
+			Dio_FlipPinLevel(DIO_PORTA, DIO_PIN0);
+		}
 	}
+}
+
+void Timer0Handler (void) {
+	counter++;
 }

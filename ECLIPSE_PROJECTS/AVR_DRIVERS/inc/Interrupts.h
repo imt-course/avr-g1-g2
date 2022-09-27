@@ -14,6 +14,14 @@
 #define VECTOR_INT2         __vector_3
 /* ADC Vector */
 #define VECTOR_ADC          __vector_16
+/* Timer Vector */
+#define VECTOR_TIM2_COMP    __vector_4
+#define VECTOR_TIM2_OV      __vector_5
+#define VECTOR_TIM1A_COMP   __vector_7
+#define VECTOR_TIM1B_COMP   __vector_8
+#define VECTOR_TIM1_OV      __vector_9
+#define VECTOR_TIM0_COMP    __vector_10
+#define VECTOR_TIM0_OV      __vector_11
 
 
 /* ISR Macro Definition */
