@@ -45,8 +45,8 @@
 #define TCCR0_COM01     5
 #define TCCR0_WGM00     6
 #define TCCR0_FOC0      7
-#define TIMSK_OCIE2     5
-#define TIMSK_TOIE2     5
+#define TIMSK_OCIE2     7
+#define TIMSK_TOIE2     6
 #define TIMSK_TICIE1    5
 #define TIMSK_OCIE1A    4
 #define TIMSK_OCIE1B    3
