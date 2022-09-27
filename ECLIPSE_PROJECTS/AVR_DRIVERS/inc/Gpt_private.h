@@ -25,11 +25,13 @@
 #define GPT_CLK_OFF                             1
 #define GPT_CLK_PRESCALER_1                     2
 #define GPT_CLK_PRESCALER_8                     3
-#define GPT_CLK_PRESCALER_64                    4
-#define GPT_CLK_PRESCALER_256                   5
-#define GPT_CLK_PRESCALER_1024                  6
-#define GPT_CLK_PRESCALER_EXT_FALLING           7
-#define GPT_CLK_PRESCALER_EXT_RISING            8
+#define GPT_CLK_PRESCALER_32                    4
+#define GPT_CLK_PRESCALER_64                    5
+#define GPT_CLK_PRESCALER_128                   6
+#define GPT_CLK_PRESCALER_256                   7
+#define GPT_CLK_PRESCALER_1024                  8
+#define GPT_CLK_PRESCALER_EXT_FALLING           9
+#define GPT_CLK_PRESCALER_EXT_RISING            10
 
 
 /******************************************************************
