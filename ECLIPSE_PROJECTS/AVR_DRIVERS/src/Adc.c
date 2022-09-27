@@ -47,6 +47,7 @@ ISR(VECTOR_ADC)
  *****************************************************************/
 void Adc_Init(const Adc_ConfigType *config)
 {
+    /* Reference Selection */
     switch (config->refernce)
     {
     case ADC_REF_AREF:
@@ -63,19 +64,21 @@ void Adc_Init(const Adc_ConfigType *config)
         break;
     }
 
+    /* ADC Auto Trigger */
     if (config->trigger == ADC_TRIGGER_OFF)
     {
         CLR_BIT(ADCSRA, ADCSRA_ADATE);
     }
     else
     {
-        /* Auto Trigger Enable */
-        SET_BIT(ADCSRA, ADCSRA_ADATE);
         /* Auto Tigger Source Selection */
         SFIOR &= 0b00011111;
         SFIOR |= ((config->trigger) << 5);
+        /* Auto Trigger Enable */
+        SET_BIT(ADCSRA, ADCSRA_ADATE);
     }
 
+    /* ADC Prescaler */
     switch (config->prescaler)
     {
     case ADC_PRESCALER_2:
@@ -104,6 +107,12 @@ void Adc_Init(const Adc_ConfigType *config)
     default:
         break;
     }
+
+    /* ADC Right Adjust Result */
+    CLR_BIT(ADMUX, ADMUX_ADLAR);
+
+    /* ADC Enable */
+    SET_BIT(ADMUX, ADCSRA_ADEN);
 }
 
 void Adc_StartConversionSync(Adc_ChannelType channel)
