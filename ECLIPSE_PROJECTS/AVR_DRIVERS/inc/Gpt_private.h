@@ -61,7 +61,7 @@
 #define TCCR1B_WGM12    3
 #define TCCR1B_WGM13    4
 #define TCCR1B_ICES1    6
-#define TCCR1B_ICES1    7
+#define TCCR1B_ICNC1    7
 
 #define TCCR2_CS20      0
 #define TCCR2_CS21      1

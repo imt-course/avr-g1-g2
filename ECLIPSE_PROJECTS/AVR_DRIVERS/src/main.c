@@ -48,17 +48,17 @@ void ICU_SW(void)
 	Pwm_Init(PWM_CHANNEL_1A);
 	Gpt_EnableNotification(GPT_INT_SOURCE_TIM0_OV, Hanlder_Timer);
 	ExtInterrupt_EnableNotification(EXT_INTERRUPT_INT0, Handler_ExtInt0);
-	Pwm_SetPrescaler(PWM_PRESCALER_8);
-	Pwm_SetTopValueChannel1(200);
-	Pwm_SetCompareValue(100);
+	Pwm_SetPrescaler(PWM_CHANNEL_1A, PWM_PRESCALER_8);
+	Pwm_SetTopValue(200);
+	Pwm_SetCompareValue(PWM_CHANNEL_1A, 100);
 	Gie_Enable();
 	while (1)
 	{
 		Lcd_DisplayClear();
-		Lcd_DisplayString("Time = ");
+		Lcd_DisplayString((u8*)"Time = ");
 		Lcd_DisplayNumber(Time);
 		Lcd_SetCursorPosition(1, 0);
-		Lcd_DisplayString("Time On = ");
+		Lcd_DisplayString((u8*)"Time On = ");
 		Lcd_DisplayNumber(Time_on);
 		_delay_ms(1000);
 	}
@@ -81,12 +81,12 @@ void Handler_ExtInt0(void)
 		break;
 	case 2:
 		Time = Gpt_GetTimeElapsed(GPT_CHANNEL_TIM0) + timer_counter * 255;
-		ExtInterrupt_SetDetectEdge(EXT_INTERRUPT_INT0, EXT_INT_DETECT_FALLING);
+		ExtInterrupt_SetDetectEdge(EXT_INTERRUPT_INT0, EXT_INTERRUPT_DETECT_FALLING);
 		counter++;
 		break;
 	case 3:
 		Time_on = Gpt_GetTimeElapsed(GPT_CHANNEL_TIM0) + timer_counter * 255 - Time;
-		ExtInterrupt_SetDetectEdge(EXT_INTERRUPT_INT0, EXT_INT_DETECT_RISING);
+		ExtInterrupt_SetDetectEdge(EXT_INTERRUPT_INT0, EXT_INTERRUPT_DETECT_RISING);
 		counter = 1;
 		break;
 	default:
