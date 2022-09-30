@@ -119,3 +119,68 @@ void ExtInterrupt_DisableNotification(ExtInterrupt_ChannelType channel)
         break;
     }
 }
+
+void ExtInterrupt_SetDetectEdge(ExtInterrupt_ChannelType channel, ExtInterrupt_EdgeType edge)
+{
+    switch (channel)
+    {
+    case EXT_INTERRUPT_INT0:
+        switch (edge)
+        {
+        case EXT_INTERRUPT_DETECT_FALLING:
+            CLR_BIT(MCUCR, MCUCR_ISC00);
+            SET_BIT(MCUCR, MCUCR_ISC01);
+            break;
+        case EXT_INTERRUPT_DETECT_RISING:
+            SET_BIT(MCUCR, MCUCR_ISC00);
+            SET_BIT(MCUCR, MCUCR_ISC01);
+            break;
+        case EXT_INTERRUPT_DETECT_ON_CHANGE:
+            // TODO
+            break;
+        case EXT_INTERRUPT_DETECT_LOW:
+            // TODO
+            break;
+        default:
+            break;
+        }
+        break;
+
+    case EXT_INTERRUPT_INT1:
+        switch (edge)
+        {
+        case EXT_INTERRUPT_DETECT_FALLING:
+            // TODO
+            break;
+        case EXT_INTERRUPT_DETECT_RISING:
+            // TODO
+            break;
+        case EXT_INTERRUPT_DETECT_ON_CHANGE:
+            // TODO
+            break;
+        case EXT_INTERRUPT_DETECT_LOW:
+            // TODO
+            break;
+        default:
+            break;
+        }
+        break;
+
+    case EXT_INTERRUPT_INT2:
+        switch (edge)
+        {
+        case EXT_INTERRUPT_DETECT_FALLING:
+            // TODO
+            break;
+        case EXT_INTERRUPT_DETECT_RISING:
+            // TODO
+            break;
+        default:
+            break;
+        }
+        break;
+
+    default:
+        break;
+    }
+}

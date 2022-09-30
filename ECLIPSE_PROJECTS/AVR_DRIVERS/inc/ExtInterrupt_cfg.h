@@ -16,7 +16,7 @@
     -> EXTERNAL_INTERRUPT_LOW_LEVEL
     -> EXTERNAL_INTERRUPT_OFF      
 */
-#define EXTERNAL_INTERRUPT_INT0_STATUS      EXTERNAL_INTERRUPT_FALLING
+#define EXTERNAL_INTERRUPT_INT0_STATUS      EXTERNAL_INTERRUPT_RISING
 
 /************************************************************************
     OPTIONS:
