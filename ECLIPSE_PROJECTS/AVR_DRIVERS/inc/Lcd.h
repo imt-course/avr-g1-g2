@@ -48,5 +48,6 @@ void Lcd_DisplayShiftLeft(u8 counter);
 void Lcd_DisplayShiftRight(u8 counter);
 void Lcd_ReturnHome(void);
 void Lcd_DisplayControl(Lcd_DisplayControlType display);
+void Lcd_SaveSpecialCharacter(u8* data, u8 location);
 
 #endif /* INC_LCD_H_ */

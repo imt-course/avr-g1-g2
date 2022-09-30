@@ -136,6 +136,19 @@ void Lcd_ReturnHome(void)
     Lcd_SendCommand(0b00000010);
 }
 
+void Lcd_SaveSpecialCharacter(u8* data, u8 location) {
+    u8 counter;
+    if (location < 8) {
+        u8 address;
+        address = location*8;
+        SET_BIT(address, 6);
+        Lcd_SendCommand(address);
+        for (counter = 0; counter < 8; counter++) {
+            Lcd_SendData(data[counter]);
+        }
+    }
+}
+
 static void Lcd_SendCommand(u8 command)
 {
     Dio_SetPinLevel(LCD_PIN_RS, STD_LOW);
