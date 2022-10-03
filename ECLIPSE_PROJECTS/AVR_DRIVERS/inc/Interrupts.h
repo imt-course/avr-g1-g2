@@ -17,6 +17,7 @@
 /* Timer Vector */
 #define VECTOR_TIM2_COMP    __vector_4
 #define VECTOR_TIM2_OV      __vector_5
+#define VECTOR_ICU          __vector_6
 #define VECTOR_TIM1A_COMP   __vector_7
 #define VECTOR_TIM1B_COMP   __vector_8
 #define VECTOR_TIM1_OV      __vector_9
