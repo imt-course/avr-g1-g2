@@ -331,11 +331,11 @@ void Gpt_EnableNotification(Gpt_InterruptSourceType channel, void (*callback)(vo
     {
     case GPT_INT_SOURCE_TIM0_OV:
         Gpt_CallbackTim0_Overflow = callback;
-        SET_BIT(TIMSK, TIMSK_OCIE0);
+        SET_BIT(TIMSK, TIMSK_TOIE0);
         break;
     case GPT_INT_SOURCE_TIM0_COMP:
         Gpt_CallbackTim0_Compare = callback;
-        SET_BIT(TIMSK, TIMSK_TOIE0);
+        SET_BIT(TIMSK, TIMSK_OCIE0);
         break;
     case GPT_INT_SOURCE_TIM1_OV:
         // TODO
@@ -360,10 +360,10 @@ void Gpt_DisableNotification(Gpt_InterruptSourceType channel)
     switch (channel)
     {
     case GPT_INT_SOURCE_TIM0_OV:
-        CLR_BIT(TIMSK, TIMSK_OCIE0);
+        CLR_BIT(TIMSK, TIMSK_TOIE0);
         break;
     case GPT_INT_SOURCE_TIM0_COMP:
-        CLR_BIT(TIMSK, TIMSK_TOIE0);
+        CLR_BIT(TIMSK, TIMSK_OCIE0);
         break;
     case GPT_INT_SOURCE_TIM1_OV:
         // TODO

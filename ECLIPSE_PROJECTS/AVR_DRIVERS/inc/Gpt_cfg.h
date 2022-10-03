@@ -41,16 +41,16 @@
  * Configuration
  *****************************************************************/
 
-#define GPT_TIM0_STATUS GPT_ON
+#define GPT_TIM0_STATUS GPT_OFF
 #if GPT_TIM0_STATUS == GPT_ON           /* Timer 0 Configurations */
 #define GPT_TIM0_WAVEFORM_MODE          GPT_WAVEFORM_MODE_NORMAL
 #define GPT_TIM0_COMPARE_OUTPUT_MODE    GPT_COMPARE_OUTPUT_MODE_DISCONNECTED
 #define GPT_TIM0_CLK                    GPT_CLK_PRESCALER_8
 #endif
 
-#define GPT_TIM1_STATUS GPT_OFF
+#define GPT_TIM1_STATUS GPT_ON
 #if GPT_TIM1_STATUS == GPT_ON           /* Timer 1 Configurations */
-#define GPT_TIM1_WAVEFORM_MODE          GPT_WAVEFORM_MODE_CTC
+#define GPT_TIM1_WAVEFORM_MODE          GPT_WAVEFORM_MODE_NORMAL
 #define GPT_TIM1A_COMPARE_OUTPUT_MODE   GPT_COMPARE_OUTPUT_MODE_DISCONNECTED
 #define GPT_TIM1B_COMPARE_OUTPUT_MODE   GPT_COMPARE_OUTPUT_MODE_DISCONNECTED
 #define GPT_TIM1_CLK                    GPT_CLK_PRESCALER_8
