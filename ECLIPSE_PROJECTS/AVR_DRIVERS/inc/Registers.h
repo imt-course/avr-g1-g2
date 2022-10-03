@@ -76,5 +76,10 @@
 #define TIMSK	                        *((volatile u8*)0x59)
 #define TIFR	                        *((volatile u8*)0x58)
 
+/******************************************************************
+ * Watchdog Timer Control Register
+ *****************************************************************/
+#define WDTCR	                        *((volatile u8*)0x41)
+
 
 #endif /* INC_REGISTERS_H_ */

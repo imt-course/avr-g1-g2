@@ -40,7 +40,7 @@ typedef struct
 
 void Lcd_Init(void);
 void Lcd_DisplayCharacter (u8 character);
-void Lcd_DisplayString (u8* str);
+void Lcd_DisplayString (const u8* str);
 void Lcd_DisplayNumber (s32 num);
 void Lcd_DisplayClear(void);
 void Lcd_SetCursorPosition(u8 row, u8 col);
@@ -49,5 +49,6 @@ void Lcd_DisplayShiftRight(u8 counter);
 void Lcd_ReturnHome(void);
 void Lcd_DisplayControl(Lcd_DisplayControlType display);
 void Lcd_SaveSpecialCharacter(u8* data, u8 location);
+void Lcd_Print(const u8 *str, ...);
 
 #endif /* INC_LCD_H_ */

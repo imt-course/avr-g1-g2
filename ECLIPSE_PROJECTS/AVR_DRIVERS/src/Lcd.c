@@ -9,8 +9,10 @@
 #include <Macros.h>
 #include <Dio.h>
 #include <cpu_freq.h>
+#include <stdarg.h>
 #include <Lcd.h>
 #include <Lcd_cfg.h>
+#include <Utils.h>
 
 static void Lcd_InitPins(void);
 static void Lcd_SendCommand(u8 command);
@@ -39,7 +41,7 @@ void Lcd_DisplayCharacter(u8 character)
     Lcd_SendData(character);
 }
 
-void Lcd_DisplayString(u8 *str)
+void Lcd_DisplayString(const u8 *str)
 {
     while (*str != 0)
     {
@@ -47,6 +49,7 @@ void Lcd_DisplayString(u8 *str)
         str++;
     }
 }
+
 void Lcd_SetCursorPosition(u8 row, u8 col)
 {
     u8 address = col + (0x40 * row);
@@ -147,6 +150,49 @@ void Lcd_SaveSpecialCharacter(u8* data, u8 location) {
             Lcd_SendData(data[counter]);
         }
     }
+}
+
+void Lcd_Print(const u8* str, ...) {
+    u32 i = 0;
+    va_list valist;
+    va_start(valist, str);
+    while (str[i] != '\0')
+    {
+        if (str[i] == '%') {
+            u8 arr[33];
+            i++;
+            switch (str[i])
+            {
+            case 'c':
+                Lcd_SendData((u8)va_arg(valist, int));
+                break;
+            case 'd':
+                Lcd_DisplayNumber(va_arg(valist, int));
+                break;
+            case 'x':
+                Utils_NumberToHex(va_arg(valist, int), arr);
+                Lcd_DisplayString(arr);
+                break;
+            case 'b':
+                Utils_NumberToBin(va_arg(valist, int), arr);
+                Lcd_DisplayString(arr);
+                break;
+            default:
+                if (str[i] == '\0') {
+                    i--;
+                }
+                else {
+                    Lcd_SendData((u8)va_arg(valist, int));
+                }
+                break;
+            }
+        }
+        else {
+            Lcd_SendData((u8)va_arg(valist, int));
+        }
+        i++;
+    }
+    va_end(valist);
 }
 
 static void Lcd_SendCommand(u8 command)
