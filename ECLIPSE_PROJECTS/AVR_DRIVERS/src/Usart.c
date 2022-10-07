@@ -22,7 +22,7 @@ void Usart_Init (void) {
     temp = 0;
     SET_BIT(temp, 7);
     /* Data Size Select */
-    SET_BIT(temp, 0);
+    SET_BIT(temp, 2);
     SET_BIT(temp, 1);
     CLR_BIT(UCSRB, 2);
     UCSRC = temp;
