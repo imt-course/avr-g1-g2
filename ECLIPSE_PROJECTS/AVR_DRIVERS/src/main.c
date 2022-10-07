@@ -35,7 +35,7 @@ int main (void) {
 		data = Usart_Receive();
 		Usart_Transmit(data);
 
-		/*Usart_Transmit('L');
+		Usart_Transmit('L');
 		Usart_Transmit('E');
 		Usart_Transmit('D');
 		Usart_Transmit(' ');
@@ -57,7 +57,7 @@ int main (void) {
 			Usart_Transmit('R');
 			Usart_Transmit('R');
 			Usart_Transmit('\n');
-		}*/
+		}
 	}
 	
 }

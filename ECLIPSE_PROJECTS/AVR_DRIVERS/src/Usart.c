@@ -34,6 +34,7 @@ void Usart_Transmit (u8 data) {
     while (GET_BIT(UCSRA, 5) == 0);
     UDR = data;
     while (GET_BIT(UCSRA, 6) == 0);
+    SET_BIT(UCSRA, 6);
 }
 u8 Usart_Receive (void) {
     while (GET_BIT(UCSRA, 7) == 0);
