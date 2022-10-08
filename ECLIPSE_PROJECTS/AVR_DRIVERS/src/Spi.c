@@ -21,8 +21,6 @@ ISR (VECTOR_SPI) {
 }
 
 void Spi_Init(void) {
-    /* SPI Enable */
-    SET_BIT(SPCR, SPCR_SPE);
 
     /* Data Order */
 #if SPI_DATA_ORDER == SPI_DATA_ORDER_LSB
@@ -90,6 +88,9 @@ void Spi_Init(void) {
 #else
 #error "INVALID SPI MODE"
 #endif
+
+    /* SPI Enable */
+    SET_BIT(SPCR, SPCR_SPE);
 }
 
 u8 Spi_Transfer(u8 data) {

@@ -13,7 +13,7 @@
         SPI_SLAVE
         SPI_MASTER
 */
-#define SPI_MODE                SPI_SLAVE
+#define SPI_MODE                SPI_MASTER
 /*******************************************************************
 --> Options:
         SPI_DATA_ORDER_MSB
