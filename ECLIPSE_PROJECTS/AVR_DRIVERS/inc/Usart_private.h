@@ -9,7 +9,7 @@
 #define INC_USART_PRIVATE_H_
 
 /******************************************************************
- * Registers Bits
+ * Configurations
  *****************************************************************/
 
 #define USART_ON                1
@@ -34,7 +34,7 @@
 #define USART_POLARITY_T_FALLING_R_RISING   2
 
 /******************************************************************
- * Configurations
+ * Registers Bits
  *****************************************************************/
 
 #define UCSRA_MPCM      0

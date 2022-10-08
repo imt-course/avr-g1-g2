@@ -92,6 +92,7 @@ void Usart_Init (void) {
 #endif
 
 }
+
 void Usart_Transmit (u8 data) {
     while (GET_BIT(UCSRA, 5) == 0);
     UDR = data;
@@ -134,6 +135,7 @@ void Usart_EnableNotification (Usart_InterruptSourceType source) {
         break;
     }
 }
+
 void Usart_DisableNotification (Usart_InterruptSourceType source) {
     switch (source)
     {
@@ -162,13 +164,14 @@ void Usart_SetCallbackEmpty(void (*callback) (void)) {
 }
 
 
-void Usart_SendString(u8 *str) {
+void Usart_SendString(const u8 *str) {
     while (*str != 0)
     {
         Usart_Transmit(*str);
         str++;
     }
 }
+
 void Usart_SendNumber(s32 num) {
     u32 reversed = 0;
     u8 counter = 0;
@@ -191,7 +194,7 @@ void Usart_SendNumber(s32 num) {
     } while (counter != 0);
 }
 
-void Usart_Print(u8 *str, ...) {
+void Usart_Print(const u8 *str, ...) {
     u32 i = 0;
     va_list valist;
     va_start(valist, str);

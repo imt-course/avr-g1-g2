@@ -29,7 +29,7 @@ void Usart_DisableNotification (Usart_InterruptSourceType source);
 void Usart_SetCallbackReceive(void (*callback) (u8 data));
 void Usart_SetCallbackTransmit(void (*callback) (void));
 void Usart_SetCallbackEmpty(void (*callback) (void));
-void Usart_SendString(u8 *str);
+void Usart_SendString(const u8 *str);
 void Usart_SendNumber(s32 num);
-void Usart_Print(u8 *str, ...);
+void Usart_Print(const u8 *str, ...);
 #endif /* INC_USART_H_ */
