@@ -23,7 +23,12 @@
 #define VECTOR_TIM1_OV      __vector_9
 #define VECTOR_TIM0_COMP    __vector_10
 #define VECTOR_TIM0_OV      __vector_11
-
+/* USART Vector */
+#define VECTOR_USART_RX     __vector_13
+#define VECTOR_USART_EMPTY  __vector_14
+#define VECTOR_USART_TX     __vector_15
+/* SPI Vector */
+#define VECTOR_SPI          __vector_12
 
 /* ISR Macro Definition */
 #define ISR(vector) \
