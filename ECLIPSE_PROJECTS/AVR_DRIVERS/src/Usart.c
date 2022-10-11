@@ -230,7 +230,7 @@ void Usart_Print(const u8 *str, ...) {
             }
         }
         else {
-            Usart_Transmit((u8)va_arg(valist, int));
+            Usart_Transmit(str[i]);
         }
         i++;
     }

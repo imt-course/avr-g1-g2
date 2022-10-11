@@ -188,7 +188,7 @@ void Lcd_Print(const u8* str, ...) {
             }
         }
         else {
-            Lcd_SendData((u8)va_arg(valist, int));
+            Lcd_SendData(str[i]);
         }
         i++;
     }
