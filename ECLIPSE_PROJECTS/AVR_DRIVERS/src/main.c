@@ -26,69 +26,62 @@
 #include <Usart.h>
 #include <Spi.h>
 
-#define APP_MASTER 1
-#define APP_SLAVE 2
+#define APP_MASTER	1
+#define APP_SLAVE	2
 
-#define APP_MODE APP_MASTER
+/********************************************************************************/
+#define APP_MODE	APP_MASTER
+/********************************************************************************/
 
 #if APP_MODE == APP_MASTER
 
-int main (void) {
-
-}
-#elif APP_MODE == APP_SLAVE
-
-int main (void) {
-	
-}
-
-#endif
-
-#if 0
+volatile u8 g_receive_flag = 0;
 volatile u8 g_data;
-volatile u8 receive_flag = 0;
-void Handler_UsartRx(u8 data) {
+
+void Handler_Usart (u8 data) {
 	g_data = data;
-	receive_flag = 1;
+	g_receive_flag = 1;
 }
 
 int main (void) {
+	Spi_Init();
 	Usart_Init();
-	Dio_SetPinMode(DIO_PORTD, DIO_PIN3, DIO_PIN_OUTPUT);
-	Usart_SetCallbackReceive(Handler_UsartRx);
 	Usart_EnableNotification(USART_INT_SOURCE_RX);
-	Usart_Transmit('L');
+	Usart_SetCallbackReceive(Handler_Usart);
 	Gie_Enable();
 	while (1)
 	{
-		if (receive_flag == 1) {
-			receive_flag = 0;
-			Usart_Transmit('L');
-			Usart_Transmit('E');
-			Usart_Transmit('D');
-			Usart_Transmit(' ');
-			if (g_data == 'a') {
-				Dio_SetPinLevel(DIO_PORTD, DIO_PIN3, STD_HIGH);
-				Usart_Transmit('O');
-				Usart_Transmit('N');
-				Usart_Transmit('\n');
-			}
-			else if (g_data == 'b') {
-				Dio_SetPinLevel(DIO_PORTD, DIO_PIN3, STD_LOW);
-				Usart_Transmit('O');
-				Usart_Transmit('F');
-				Usart_Transmit('F');
-				Usart_Transmit('\n');
-			}
-			else {
-				Usart_Transmit('E');
-				Usart_Transmit('R');
-				Usart_Transmit('R');
-				Usart_Transmit('\n');
-			}
+		if (g_receive_flag == 1) {
+			g_receive_flag = 0;
+			Spi_Transfer(g_data);
 		}
-		
 	}
-	
 }
+
+/********************************************************************************/
+
+#elif APP_MODE == APP_SLAVE
+
+volatile u8 g_receive_flag = 0;
+volatile u8 g_data;
+
+void Handler_Spi (u8 data) {
+	g_data = data;
+	g_receive_flag = 1;
+}
+
+int main (void) {
+	Spi_Init();
+	Usart_Init();
+	Spi_EnableNotification(Handler_Spi);
+	Gie_Enable();
+	while (1)
+	{
+		if (g_receive_flag == 1) {
+			g_receive_flag = 0;
+			Usart_Transmit(g_data);
+		}
+	}
+}
+
 #endif

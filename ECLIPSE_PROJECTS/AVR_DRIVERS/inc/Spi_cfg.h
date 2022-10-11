@@ -25,7 +25,7 @@
         SPI_POLARITY_IDLE_HIGH
         SPI_POLARITY_IDLE_LOW
 */
-#define SPI_POLARITY            SPI_POLARITY_IDLE_HIGH
+#define SPI_POLARITY            SPI_POLARITY_IDLE_LOW
 /*******************************************************************
 --> Options:
         SPI_PHASE_SAMPLE_SETUP
@@ -42,7 +42,7 @@
         SPI_PRESCALER_64
         SPI_PRESCALER_128
 */
-#define SPI_PRESCALER           SPI_PRESCALER_2
+#define SPI_PRESCALER           SPI_PRESCALER_128
 /*******************************************************************/
 
 #endif /* INC_SPI_CFG_H_ */

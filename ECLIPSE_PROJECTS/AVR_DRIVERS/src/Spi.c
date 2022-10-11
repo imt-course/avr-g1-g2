@@ -68,7 +68,9 @@ void Spi_Init(void) {
 #elif SPI_PRESCALER == SPI_PRESCALER_64
     // TODO
 #elif SPI_PRESCALER == SPI_PRESCALER_128
-    // TODO
+    SET_BIT(SPCR, SPCR_SPR0);
+    SET_BIT(SPCR, SPCR_SPR1);
+    CLR_BIT(SPSR, SPSR_SPI2X);
 #else
 #error "INVALID PRESCALER FOR SPI"
 #endif
@@ -97,6 +99,10 @@ u8 Spi_Transfer(u8 data) {
     SPDR = data;
     while (GET_BIT(SPSR, SPSR_SPIF) == 0);
     return SPDR;
+}
+
+void Spi_WriteDate(u8 data) {
+    SPDR = data;
 }
 
 void Spi_EnableNotification(void (*callback)(u8 data)) {
