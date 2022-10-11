@@ -8,6 +8,7 @@
 #include <Macros.h>
 #include <Dio.h>
 #include <cpu_freq.h>
+#include <util/delay.h>
 #include <Keypad_cfg.h>
 #include <Keypad.h>
 

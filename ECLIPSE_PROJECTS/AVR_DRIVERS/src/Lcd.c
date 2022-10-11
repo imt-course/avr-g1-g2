@@ -9,6 +9,7 @@
 #include <Macros.h>
 #include <Dio.h>
 #include <cpu_freq.h>
+#include <util/delay.h>
 #include <stdarg.h>
 #include <Lcd.h>
 #include <Lcd_cfg.h>
