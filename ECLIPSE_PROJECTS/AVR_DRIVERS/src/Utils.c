@@ -6,8 +6,9 @@
  */
 
 #include <std_types.h>
+#include <Lcd.h>
 
-void Utils_NumberToHex(u32 number, u8 arr[])
+u8 Utils_NumberToHex(u32 number, u8 arr[])
 {
     u8 counter = 0;
     u8 remainder;
@@ -25,18 +26,18 @@ void Utils_NumberToHex(u32 number, u8 arr[])
         }
         counter++;
     } while (number != 0);
-    arr[counter] = '\0';
+    return counter-1;
 }
 
 
-void Utils_NumberToBin(u32 number, u8 arr[])
+u8 Utils_NumberToBin(u32 number, u8 arr[])
 {
     u8 counter = 0;
     do
     {
-        arr[counter] = number % 2;
+        arr[counter] = number % 2 + '0';
         number /= 2;
         counter++;
     } while (number != 0);
-    arr[counter] = '\0';
+    return counter-1;
 }

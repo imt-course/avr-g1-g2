@@ -153,13 +153,14 @@ void Lcd_SaveSpecialCharacter(u8* data, u8 location) {
 }
 
 void Lcd_Print(const u8* str, ...) {
-    u32 i = 0;
+    u8 i = 0;
     va_list valist;
     va_start(valist, str);
     while (str[i] != '\0')
     {
         if (str[i] == '%') {
-            u8 arr[33];
+            u8 arr[32];
+            u8 count;
             i++;
             switch (str[i])
             {
@@ -169,20 +170,50 @@ void Lcd_Print(const u8* str, ...) {
             case 'd':
                 Lcd_DisplayNumber(va_arg(valist, int));
                 break;
+            case 'u':
+                if (str[i+1] == 'l') {
+                    i++;
+                    Lcd_DisplayNumber(va_arg(valist, unsigned long));
+                }
+                else {
+                    Lcd_DisplayNumber(va_arg(valist, unsigned int));
+                }
+                break;
+            case 'l':
+                Lcd_DisplayNumber(va_arg(valist, long));
+                break;
             case 'x':
-                Utils_NumberToHex(va_arg(valist, int), arr);
-                Lcd_DisplayString(arr);
+                if (str[i+1] == 'l') {
+                    i++;
+                    count = Utils_NumberToHex(va_arg(valist, unsigned long), arr);
+                }
+                else {
+                    count = Utils_NumberToHex(va_arg(valist, unsigned int), arr);
+                }
+                for (u8 j=count; j>0; j--) {
+                    Lcd_SendData(arr[j]);
+                }
+                Lcd_SendData(arr[0]);
                 break;
             case 'b':
-                Utils_NumberToBin(va_arg(valist, int), arr);
-                Lcd_DisplayString(arr);
+                if (str[i+1] == 'l') {
+                    i++;
+                    count = Utils_NumberToBin(va_arg(valist, unsigned long), arr);
+                }
+                else {
+                    count = Utils_NumberToBin(va_arg(valist, unsigned int), arr);
+                }
+                for (u8 j=count; j>0; j--) {
+                    Lcd_SendData(arr[j]);
+                }
+                Lcd_SendData(arr[0]);
                 break;
             default:
                 if (str[i] == '\0') {
                     i--;
                 }
                 else {
-                    Lcd_SendData((u8)va_arg(valist, int));
+                    Lcd_SendData(str[i]);
                 }
                 break;
             }

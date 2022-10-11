@@ -172,8 +172,8 @@ void Usart_SendString(const u8 *str) {
     }
 }
 
-void Usart_SendNumber(s32 num) {
-    u32 reversed = 0;
+void Usart_SendNumber(s64 num) {
+    u64 reversed = 0;
     u8 counter = 0;
     if (num < 0)
     {
@@ -195,13 +195,14 @@ void Usart_SendNumber(s32 num) {
 }
 
 void Usart_Print(const u8 *str, ...) {
-    u32 i = 0;
+    u8 i = 0;
     va_list valist;
     va_start(valist, str);
     while (str[i] != '\0')
     {
         if (str[i] == '%') {
-            u8 arr[33];
+            u8 arr[32];
+            u8 count;
             i++;
             switch (str[i])
             {
@@ -211,20 +212,50 @@ void Usart_Print(const u8 *str, ...) {
             case 'd':
                 Usart_SendNumber(va_arg(valist, int));
                 break;
+            case 'u':
+                if (str[i+1] == 'l') {
+                    i++;
+                    Usart_SendNumber(va_arg(valist, unsigned long));
+                }
+                else {
+                    Usart_SendNumber(va_arg(valist, unsigned int));
+                }
+                break;
+            case 'l':
+                Usart_SendNumber(va_arg(valist, long));
+                break;
             case 'x':
-                Utils_NumberToHex(va_arg(valist, int), arr);
-                Usart_SendString(arr);
+                if (str[i+1] == 'l') {
+                    i++;
+                    count = Utils_NumberToHex(va_arg(valist, unsigned long), arr);
+                }
+                else {
+                    count = Utils_NumberToHex(va_arg(valist, unsigned int), arr);
+                }
+                for (u8 j=count; j>0; j--) {
+                    Usart_Transmit(arr[j]);
+                }
+                Usart_Transmit(arr[0]);
                 break;
             case 'b':
-                Utils_NumberToBin(va_arg(valist, int), arr);
-                Usart_SendString(arr);
+                if (str[i+1] == 'l') {
+                    i++;
+                    count = Utils_NumberToBin(va_arg(valist, unsigned long), arr);
+                }
+                else {
+                    count = Utils_NumberToBin(va_arg(valist, unsigned int), arr);
+                }
+                for (u8 j=count; j>0; j--) {
+                    Usart_Transmit(arr[j]);
+                }
+                Usart_Transmit(arr[0]);
                 break;
             default:
                 if (str[i] == '\0') {
                     i--;
                 }
                 else {
-                    Usart_Transmit((u8)va_arg(valist, int));
+                    Usart_Transmit(str[i]);
                 }
                 break;
             }
