@@ -25,15 +25,49 @@
 #include <Icu.h>
 #include <Usart.h>
 #include <Spi.h>
+#include <I2c.h>
+#include <Eeprom.h>
 
-#define APP_MASTER	1
-#define APP_SLAVE	2
+#define APP_SPI_MASTER	1
+#define APP_SPI_SLAVE	2
+#define APP_EEPROM		3
 
 /********************************************************************************/
-#define APP_MODE	APP_MASTER
+#define APP_MODE	APP_SPI_SLAVE
 /********************************************************************************/
 
-#if APP_MODE == APP_MASTER
+#if APP_MODE == APP_EEPROM
+
+volatile u8 g_data;
+volatile u8 received_flag = 0;
+void HandlerUsart(u8 data) {
+	received_flag = 1;
+	g_data = data;
+}
+
+int main (void) {
+	Usart_Init();
+	I2c_Master_Init(0);
+	Usart_EnableNotification(USART_INT_SOURCE_RX);
+	Usart_SetCallbackReceive(HandlerUsart);
+	Eeprom_ReadByte(EEPROM_DEVICE_NUMBER_0, &g_data, 0);
+	Usart_Print("Last Number: %d\n", g_data);
+	Gie_Enable();
+
+	while (1)
+	{
+		if (received_flag == 1) {
+			received_flag = 0;
+			Eeprom_WriteByte(EEPROM_DEVICE_NUMBER_0, g_data, 0);
+			_delay_ms(10);
+			Usart_Print("You Entered %d\n", g_data);
+		}
+	}
+}
+
+/********************************************************************************/
+
+#elif APP_MODE == APP_SPI_MASTER
 
 volatile u8 g_receive_flag = 0;
 volatile u8 g_data;
@@ -60,7 +94,7 @@ int main (void) {
 
 /********************************************************************************/
 
-#elif APP_MODE == APP_SLAVE
+#elif APP_MODE == APP_SPI_SLAVE
 
 volatile u8 g_receive_flag = 0;
 volatile u8 g_data;
